@@ -60,6 +60,9 @@ form {
     gap: 20px;
   }
 }
+th{
+  text-align: left;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

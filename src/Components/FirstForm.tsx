@@ -7,8 +7,10 @@ import { number, object, string } from "yup";
 
 export default function FirstForm({
   setOpenSecForm,
+  setSaveValue
 }: {
   setOpenSecForm: Dispatch<React.SetStateAction<boolean>>;
+  setSaveValue: Dispatch<React.SetStateAction<any>>;
 }) {
   const { register, handleSubmit } = useForm();
   const [sexSelected, setSexSelected] = useState<string>("");
@@ -20,7 +22,6 @@ export default function FirstForm({
     tempObj["ID Type"] = IDTypeSelected;
     if (data["Mobile"] === "") data["Mobile"] = null;
     const data1 = { ...data, ...tempObj };
-    console.log("data1: ", data1);
     try {
       const result = await formSchema.validate(data1);
       setErrorMsg("");
@@ -39,10 +40,12 @@ export default function FirstForm({
         return;
       } else setErrorMsg("");
     }
+    setSaveValue(data1);
     setOpenSecForm(true);
   }
   return (
     <form onSubmit={handleSubmit((data) => submitClicked(data))}>
+      <h4 style={{textDecoration: "underline"}}>Personal Details</h4>
       <section>
         <TextInput
           labelName="Name"
